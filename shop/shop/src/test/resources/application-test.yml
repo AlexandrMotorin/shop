@@ -1,0 +1,7 @@
+scheduler:
+  enabled: false
+
+spring:
+  datasource:
+    username: test
+    password: test

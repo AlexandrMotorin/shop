@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.baeldung.com/springsoap/gen"
+           targetNamespace="http://www.baeldung.com/springsoap/gen" elementFormDefault="qualified">
+
+
+    <xs:element name="getClientsRequest"/>
+    <xs:element name="getClientsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="client" type="tns:clientModal" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="changeClientDiscountRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="discount1" type="xs:int"/>
+                <xs:element name="discount2" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProductsRequest"/>
+    <xs:element name="getProductsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="product" type="tns:productModal" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getProductInfoRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productId" type="xs:long"/>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getProductInfoResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="productInfoModal" type="tns:productInfoModal"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="totalSumRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="positions" type="tns:position" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="totalSumResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="totalSum" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createDealRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="positions" type="tns:position" maxOccurs="unbounded" minOccurs="0"/>
+                <xs:element name="totalSum" type="xs:int"/>
+                <xs:element name="clientId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="createDealResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="checkId" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="evaluateProductRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="clientId" type="xs:long"/>
+                <xs:element name="productId" type="xs:long"/>
+                <xs:element name="value" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getStatisticRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="statisticTypeModal" type="tns:statisticTypeModal"/>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getStatisticResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="checkCount" type="xs:int"/>
+                <xs:element name="totalPrice" type="xs:int"/>
+                <xs:element name="discountSum" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="clientModal">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+            <xs:element name="discount1" type="xs:int"/>
+            <xs:element name="discount2" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="productModal">
+        <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="price" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="productInfoModal">
+        <xs:sequence>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="averageEvaluation" type="xs:string"/>
+            <xs:sequence>
+                <xs:element name="distributions" type="tns:distribution" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+            <xs:element name="clientEvaluation" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="distribution">
+        <xs:sequence>
+            <xs:element name="evaluation" type="xs:int"/>
+            <xs:element name="quantity" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="position">
+        <xs:sequence>
+            <xs:element name="productId" type="xs:int"/>
+            <xs:element name="quantity" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="statisticTypeModal">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="client"/>
+            <xs:enumeration value="product"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
